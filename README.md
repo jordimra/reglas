@@ -1,4 +1,4 @@
-# 🧠 Motor de Inferencia (Sistema Basado en Reglas)
+# ⚙️ Motor de Inferencia (Sistema Basado en Reglas)
 
 Una herramienta web ligera y pedagógica para generar y resolver sistemas expertos basados en reglas. Desarrollada en **PHP**, **JS** y **CSS** puro, sin dependencias externas.
 
