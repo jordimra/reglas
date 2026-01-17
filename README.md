@@ -31,7 +31,7 @@ Al ser una aplicación PHP nativa, solo necesitas un servidor web local.
 
 1. **Clona el repositorio:**
    ```bash
-   git clone https://github.com/jordimra/sistema-experto-php.git
+   git clone https://github.com/jordimra/reglas
    ```
 
 2. **Estructura de archivos:**
