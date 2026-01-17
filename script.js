@@ -139,4 +139,28 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         reader.readAsText(file);
     });
+
+        // ... (resto del código anterior) ...
+
+    // 5. VALIDACIÓN DEL FORMULARIO (NUEVO)
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+        const checkboxes = document.querySelectorAll('input[name="options[]"]:checked');
+        
+        if (checkboxes.length === 0) {
+            e.preventDefault(); // Detener el envío
+            alert('⚠️ Debes seleccionar al menos una estrategia de resolución de conflictos (ej: Orden Textual).');
+            
+            // Efecto visual para destacar el error
+            const group = document.querySelector('.checkbox-group');
+            group.style.border = "2px solid #e74c3c";
+            group.style.padding = "10px";
+            group.style.borderRadius = "5px";
+            
+            setTimeout(() => {
+                group.style.border = "none";
+                group.style.padding = "0"; // O el padding que tuviera en CSS
+            }, 3000);
+        }
+    });
 });

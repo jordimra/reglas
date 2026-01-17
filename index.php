@@ -68,22 +68,30 @@ class InferenceEngine {
 
     private function sortRules(&$candidateRules) {
         usort($candidateRules, function($a, $b) {
-            // Especificidad
+            // A. Especificidad
             if (in_array('specificity', $this->strategies)) {
                 $specA = count($a['premises']);
                 $specB = count($b['premises']);
                 if ($specA !== $specB) return $specB - $specA; 
             }
-            // Recencia
+            
+            // B. Recencia
             if (in_array('recency', $this->strategies)) {
                 $maxCycleA = -1;
                 $maxCycleB = -1;
                 foreach($a['premises'] as $p) if(isset($this->workingMemory[$p])) $maxCycleA = max($maxCycleA, $this->workingMemory[$p]);
                 foreach($b['premises'] as $p) if(isset($this->workingMemory[$p])) $maxCycleB = max($maxCycleB, $this->workingMemory[$p]);
+                
                 if ($maxCycleA !== $maxCycleB) return $maxCycleB - $maxCycleA;
             }
-            // Orden Textual
-            return $a['id'] - $b['id'];
+
+            // C. Orden Textual (AHORA ES OPCIONAL)
+            if (in_array('order', $this->strategies)) {
+                return $a['id'] - $b['id'];
+            }
+
+            // Si llegamos aquí y no hay más criterios, es un empate total (0)
+            return 0; 
         });
     }
 
@@ -271,7 +279,11 @@ if ($isPost) {
                 <label><input type="checkbox" name="options[]" value="obstinacy" <?php echo checkOpt('obstinacy', $isPost, $selectedOptions); ?>> Obstinancia</label>
                 <label><input type="checkbox" name="options[]" value="specificity" <?php echo checkOpt('specificity', $isPost, $selectedOptions); ?>> Especificidad</label>
                 <label><input type="checkbox" name="options[]" value="recency" <?php echo checkOpt('recency', $isPost, $selectedOptions); ?>> Recencia</label>
-                <label><input type="checkbox" name="options[]" value="order" checked disabled> Orden Textual</label>
+                
+                <label>
+                    <input type="checkbox" name="options[]" value="order" <?php echo checkOpt('order', $isPost, $selectedOptions); ?>> 
+                    Orden Textual
+                </label>
             </div>
         </div>
 
